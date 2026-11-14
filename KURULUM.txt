@@ -1,0 +1,39 @@
+BOZOKLU HAN HARİTA OKUYUCU — HTML SÜRÜMÜ 4.17.1 (iPhone ve Android telefonlar)
+© 2026 Yasin HAN · 0 532 234 18 06 · yasinhan@gmail.com
+
+Bu klasör telefonda tarayıcıdan çalışan uygulamadır. Telefonda kalıcı ve internetsiz çalışması için
+bir web adresinde (https) yayımlanmalıdır. Ücretsiz yol: GitHub Pages.
+
+A) GITHUB PAGES İLE YAYIMLAMA (bir kez yapılır, ücretsiz)
+ 1. github.com adresinde ücretsiz hesap açın (ör. kullanıcı adı: yasinhan).
+ 2. Sağ üstte "+" → "New repository". Ad: harita  · "Public" seçili olsun → "Create repository".
+ 3. Açılan sayfada "uploading an existing file" bağlantısına tıklayın.
+ 4. Bu klasörün İÇİNDEKİ tüm dosya ve klasörleri (index.html, app.js, lib klasörü, simgeler…)
+    sürükleyip bırakın → "Commit changes".
+ 5. Depoda "Settings" → solda "Pages" → "Branch: main" ve "/ (root)" → "Save".
+ 6. 1–2 dakika sonra adresiniz hazır olur:  https://KULLANICIADI.github.io/harita/
+
+B) TELEFONA KURMA — KURULUM SİHİRBAZI (kullanıcı yalnız "Evet" der)
+ Adres ilk açıldığında sihirbaz sırayla ilerler:
+  1. Ana ekrana ekle
+     Android (Chrome): "Evet, Yükle" → telefonun "Yükle" sorusuna Evet → simge ana ekrana eklenir.
+     iPhone (Safari) : Apple buna otomatik izin vermez; sihirbaz 3 adımı gösterir:
+                       Paylaş ⬆ → "Ana Ekrana Ekle" → "Ekle". Sonra ana ekrandaki simgeden açın.
+  2. Konum izni  → "Evet, İzin Ver" (izin verilene kadar her açılışta telefonun kendi sorusu çıkar; bir kez "İzin ver" yeterli)
+  3. Pusula izni → "Evet, İzin Ver" (yalnız iPhone sorar)
+  4. Kamera izni → "Evet, İzin Ver" (fotoğraf çekip parsele bağlamak için)
+  5. Kalıcı depolama otomatik istenir (kayıtlarınız silinmesin diye).
+ Sihirbaz sonradan Menü → "Kurulum ve İzinler" ile yeniden açılabilir.
+
+C) İZİNLER SONRADAN KAPANIRSA
+ iPhone : Ayarlar → Safari (ya da Bzk.Harita) → Konum / Hareket ve Yön / Kamera.
+ Android: Uygulama simgesine uzun basın → Uygulama bilgisi → İzinler.
+
+D) BİLMENİZ GEREKENLER
+ • Dosyalar, notlar ve belgeler telefonun tarayıcı belleğinde saklanır. Düzenli olarak
+   Menü → Tümünü Yedekle ile .zip yedek alın.
+ • TKGM'den parsel getirme ve "Parsel Sorgudan Getir" tarayıcıda çalışmayabilir (TKGM servisi tarayıcı isteklerine kapalı olabilir).
+ • Uydu altlığı ve yol tarifi rotası internet gerektirir.
+ • Güncelleme: yeni sürümün dosyalarını aynı depoya yükleyin; telefonda uygulama bir sonraki açılışta yenilenir.
+
+Tek dosyalık BZK_HARITA_OKUYUCU_v4.17.1.html bilgisayarda (Chrome/Edge) çift tıklayarak denemek içindir.

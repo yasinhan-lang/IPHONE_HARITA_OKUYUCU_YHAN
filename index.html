@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0f2a3d" id="metaTheme">
+<title>BOZOKLUHAN Harita Okuyucu</title>
+<link rel="stylesheet" href="lib/leaflet.css">
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="theme-color" content="#0f2a3d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bzk.Harita">
+<meta name="format-detection" content="telephone=no">
+</head>
+<body>
+
+<!-- Açılış ekranı -->
+<div id="splash">
+  <svg class="sp-map" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path class="sp-a" style="--d:0.00s" d="M6 4L64 6L64 91L6 89Z"/><path class="sp-p" style="--d:0.04s" d="M34 8L27 87"/><path class="sp-a" style="--d:0.07s" d="M6 96L64 101L64 189L6 184Z"/><path class="sp-p" style="--d:0.11s" d="M20 103L20 182"/><path class="sp-p" style="--d:0.14s" d="M39 103L38 182"/><path class="sp-p" style="--d:0.18s" d="M8 134L62 133"/><path class="sp-a" style="--d:0.21s" d="M6 200L64 196L64 290L6 294Z"/><path class="sp-p" style="--d:0.25s" d="M40 198L42 292"/><path class="sp-p" style="--d:0.28s" d="M8 236L62 237"/><path class="sp-a" style="--d:0.32s" d="M6 301L64 306L64 379L6 374Z"/><path class="sp-p" style="--d:0.35s" d="M30 308L35 372"/><path class="sp-p" style="--d:0.39s" d="M8 333L62 328"/><path class="sp-a" style="--d:0.42s" d="M6 384L64 386L64 466L6 464Z"/><path class="sp-p" style="--d:0.46s" d="M22 388L23 462"/><path class="sp-p" style="--d:0.49s" d="M46 388L44 462"/><path class="sp-p" style="--d:0.53s" d="M8 416L62 411"/><path class="sp-a" style="--d:0.56s" d="M6 472L64 476L64 558L6 554Z"/><path class="sp-p" style="--d:0.60s" d="M26 478L30 552"/><path class="sp-p" style="--d:0.63s" d="M44 478L51 552"/><path class="sp-p" style="--d:0.67s" d="M8 510L62 506"/><path class="sp-a" style="--d:0.70s" d="M6 569L64 566L64 641L6 644Z"/><path class="sp-p" style="--d:0.74s" d="M36 568L36 642"/><path class="sp-a" style="--d:0.77s" d="M6 659L64 656L64 731L6 734Z"/><path class="sp-p" style="--d:0.00s" d="M36 658L29 732"/><path class="sp-p" style="--d:0.04s" d="M8 688L62 686"/><path class="sp-a" style="--d:0.07s" d="M6 751L64 746L64 789L6 794Z"/><path class="sp-p" style="--d:0.11s" d="M29 748L32 792"/><path class="sp-a" style="--d:0.14s" d="M76 7L144 6L144 88L76 89Z"/><path class="sp-p" style="--d:0.18s" d="M108 8L106 87"/><path class="sp-p" style="--d:0.21s" d="M78 53L142 48"/><path class="sp-a" style="--d:0.25s" d="M76 96L144 101L144 189L76 184Z"/><path class="sp-p" style="--d:0.28s" d="M110 103L112 182"/><path class="sp-p" style="--d:0.32s" d="M78 147L142 148"/><path class="sp-a" style="--d:0.35s" d="M76 202L144 196L144 288L76 294Z"/><path class="sp-p" style="--d:0.39s" d="M107 198L106 292"/><path class="sp-a" style="--d:0.42s" d="M76 300L144 306L144 380L76 374Z"/><path class="sp-p" style="--d:0.46s" d="M108 308L110 372"/><path class="sp-p" style="--d:0.49s" d="M78 334L142 332"/><path class="sp-a" style="--d:0.53s" d="M76 389L144 386L144 461L76 464Z"/><path class="sp-p" style="--d:0.56s" d="M109 388L115 462"/><path class="sp-p" style="--d:0.60s" d="M78 424L142 425"/><path class="sp-a" style="--d:0.63s" d="M76 481L144 476L144 549L76 554Z"/><path class="sp-p" style="--d:0.67s" d="M114 478L111 552"/><path class="sp-p" style="--d:0.70s" d="M78 512L142 517"/><path class="sp-a" style="--d:0.74s" d="M76 571L144 566L144 639L76 644Z"/><path class="sp-p" style="--d:0.77s" d="M105 568L99 642"/><path class="sp-a" style="--d:0.00s" d="M76 650L144 656L144 740L76 734Z"/><path class="sp-p" style="--d:0.04s" d="M95 658L91 732"/><path class="sp-p" style="--d:0.07s" d="M117 658L118 732"/><path class="sp-a" style="--d:0.11s" d="M76 744L144 746L144 796L76 794Z"/><path class="sp-p" style="--d:0.14s" d="M112 748L113 792"/><path class="sp-a" style="--d:0.18s" d="M156 8L209 6L209 87L156 89Z"/><path class="sp-p" style="--d:0.21s" d="M182 8L188 87"/><path class="sp-a" style="--d:0.25s" d="M156 103L209 101L209 182L156 184Z"/><path class="sp-p" style="--d:0.28s" d="M172 103L171 182"/><path class="sp-p" style="--d:0.32s" d="M187 103L189 182"/><path class="sp-p" style="--d:0.35s" d="M158 134L207 130"/><path class="sp-a" style="--d:0.39s" d="M156 192L209 196L209 298L156 294Z"/><path class="sp-p" style="--d:0.42s" d="M184 198L177 292"/><path class="sp-p" style="--d:0.46s" d="M158 246L207 251"/><path class="sp-a" style="--d:0.49s" d="M156 307L209 306L209 373L156 374Z"/><path class="sp-p" style="--d:0.53s" d="M187 308L189 372"/><path class="sp-p" style="--d:0.56s" d="M158 335L207 333"/><path class="sp-a" style="--d:0.60s" d="M156 384L209 386L209 466L156 464Z"/><path class="sp-p" style="--d:0.63s" d="M178 388L178 462"/><path class="sp-a" style="--d:0.67s" d="M156 476L209 476L209 554L156 554Z"/><path class="sp-p" style="--d:0.70s" d="M178 478L171 552"/><path class="sp-p" style="--d:0.74s" d="M158 510L207 514"/><path class="sp-a" style="--d:0.77s" d="M156 562L209 566L209 648L156 644Z"/><path class="sp-p" style="--d:0.00s" d="M179 568L186 642"/><path class="sp-p" style="--d:0.04s" d="M158 609L207 614"/><path class="sp-a" style="--d:0.07s" d="M156 659L209 656L209 731L156 734Z"/><path class="sp-p" style="--d:0.11s" d="M188 658L194 732"/><path class="sp-a" style="--d:0.14s" d="M156 743L209 746L209 797L156 794Z"/><path class="sp-p" style="--d:0.18s" d="M187 748L185 792"/><path class="sp-p" style="--d:0.21s" d="M158 771L207 771"/><path class="sp-a" style="--d:0.25s" d="M221 8L294 6L294 87L221 89Z"/><path class="sp-p" style="--d:0.28s" d="M249 8L257 87"/><path class="sp-p" style="--d:0.32s" d="M274 8L279 87"/><path class="sp-a" style="--d:0.35s" d="M221 104L294 101L294 181L221 184Z"/><path class="sp-p" style="--d:0.39s" d="M254 103L254 182"/><path class="sp-a" style="--d:0.42s" d="M221 202L294 196L294 288L221 294Z"/><path class="sp-p" style="--d:0.46s" d="M257 198L252 292"/><path class="sp-a" style="--d:0.49s" d="M221 304L294 306L294 376L221 374Z"/><path class="sp-p" style="--d:0.53s" d="M251 308L258 372"/><path class="sp-p" style="--d:0.56s" d="M268 308L264 372"/><path class="sp-p" style="--d:0.60s" d="M223 334L292 330"/><path class="sp-a" style="--d:0.63s" d="M221 387L294 386L294 463L221 464Z"/><path class="sp-p" style="--d:0.67s" d="M249 388L249 462"/><path class="sp-p" style="--d:0.70s" d="M272 388L276 462"/><path class="sp-p" style="--d:0.74s" d="M223 428L292 433"/><path class="sp-a" style="--d:0.77s" d="M221 479L294 476L294 551L221 554Z"/><path class="sp-p" style="--d:0.00s" d="M257 478L252 552"/><path class="sp-a" style="--d:0.04s" d="M221 564L294 566L294 646L221 644Z"/><path class="sp-p" style="--d:0.07s" d="M244 568L243 642"/><path class="sp-p" style="--d:0.11s" d="M275 568L279 642"/><path class="sp-p" style="--d:0.14s" d="M223 598L292 593"/><path class="sp-a" style="--d:0.18s" d="M221 661L294 656L294 729L221 734Z"/><path class="sp-p" style="--d:0.21s" d="M241 658L246 732"/><path class="sp-p" style="--d:0.25s" d="M275 658L278 732"/><path class="sp-p" style="--d:0.28s" d="M223 696L292 692"/><path class="sp-a" style="--d:0.32s" d="M221 740L294 746L294 800L221 794Z"/><path class="sp-p" style="--d:0.35s" d="M247 748L248 792"/><path class="sp-p" style="--d:0.39s" d="M275 748L274 792"/><path class="sp-a" style="--d:0.42s" d="M306 10L394 6L394 85L306 89Z"/><path class="sp-p" style="--d:0.46s" d="M344 8L340 87"/><path class="sp-p" style="--d:0.49s" d="M308 53L392 51"/><path class="sp-a" style="--d:0.53s" d="M306 102L394 101L394 183L306 184Z"/><path class="sp-p" style="--d:0.56s" d="M345 103L349 182"/><path class="sp-a" style="--d:0.60s" d="M306 198L394 196L394 292L306 294Z"/><path class="sp-p" style="--d:0.63s" d="M334 198L341 292"/><path class="sp-p" style="--d:0.67s" d="M365 198L365 292"/><path class="sp-p" style="--d:0.70s" d="M308 235L392 235"/><path class="sp-a" style="--d:0.74s" d="M306 302L394 306L394 378L306 374Z"/><path class="sp-p" style="--d:0.77s" d="M353 308L348 372"/><path class="sp-p" style="--d:0.00s" d="M308 342L392 338"/><path class="sp-a" style="--d:0.04s" d="M306 381L394 386L394 469L306 464Z"/><path class="sp-p" style="--d:0.07s" d="M336 388L336 462"/><path class="sp-p" style="--d:0.11s" d="M368 388L362 462"/><path class="sp-p" style="--d:0.14s" d="M308 420L392 417"/><path class="sp-a" style="--d:0.18s" d="M306 479L394 476L394 551L306 554Z"/><path class="sp-p" style="--d:0.21s" d="M335 478L327 552"/><path class="sp-p" style="--d:0.25s" d="M369 478L362 552"/><path class="sp-p" style="--d:0.28s" d="M308 524L392 526"/><path class="sp-a" style="--d:0.32s" d="M306 562L394 566L394 648L306 644Z"/><path class="sp-p" style="--d:0.35s" d="M349 568L350 642"/><path class="sp-p" style="--d:0.39s" d="M308 614L392 616"/><path class="sp-a" style="--d:0.42s" d="M306 661L394 656L394 729L306 734Z"/><path class="sp-p" style="--d:0.46s" d="M355 658L361 732"/><path class="sp-p" style="--d:0.49s" d="M308 694L392 693"/><path class="sp-a" style="--d:0.53s" d="M306 745L394 746L394 795L306 794Z"/><path class="sp-p" style="--d:0.56s" d="M345 748L341 792"/><path class="sp-p" style="--d:0.60s" d="M308 773L392 777"/></svg>
+  <div class="splash-inner">
+    <div class="sp-logo-wrap">
+      <svg class="sp-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47"/><line x1="50.00" y1="3.00" x2="50.00" y2="10.00"/><line x1="62.16" y1="4.60" x2="61.13" y2="8.47"/><line x1="73.50" y1="9.30" x2="71.50" y2="12.76"/><line x1="83.23" y1="16.77" x2="80.41" y2="19.59"/><line x1="90.70" y1="26.50" x2="87.24" y2="28.50"/><line x1="95.40" y1="37.84" x2="91.53" y2="38.87"/><line x1="97.00" y1="50.00" x2="90.00" y2="50.00"/><line x1="95.40" y1="62.16" x2="91.53" y2="61.13"/><line x1="90.70" y1="73.50" x2="87.24" y2="71.50"/><line x1="83.23" y1="83.23" x2="80.41" y2="80.41"/><line x1="73.50" y1="90.70" x2="71.50" y2="87.24"/><line x1="62.16" y1="95.40" x2="61.13" y2="91.53"/><line x1="50.00" y1="97.00" x2="50.00" y2="90.00"/><line x1="37.84" y1="95.40" x2="38.87" y2="91.53"/><line x1="26.50" y1="90.70" x2="28.50" y2="87.24"/><line x1="16.77" y1="83.23" x2="19.59" y2="80.41"/><line x1="9.30" y1="73.50" x2="12.76" y2="71.50"/><line x1="4.60" y1="62.16" x2="8.47" y2="61.13"/><line x1="3.00" y1="50.00" x2="10.00" y2="50.00"/><line x1="4.60" y1="37.84" x2="8.47" y2="38.87"/><line x1="9.30" y1="26.50" x2="12.76" y2="28.50"/><line x1="16.77" y1="16.77" x2="19.59" y2="19.59"/><line x1="26.50" y1="9.30" x2="28.50" y2="12.76"/><line x1="37.84" y1="4.60" x2="38.87" y2="8.47"/><path class="sp-n" d="M50 0.5 L54 9 L46 9 Z"/></svg>
+      <img class="logo-img big sp-logo" src="logo.png" alt="BOZOKLU HAN">
+    </div>
+    <div class="splash-title sp-title" id="spTitle">HARİTA OKUYUCU</div>
+    <div class="sp-fmts"><span>NCZ</span><span>GML</span><span>DXF</span><span>JSON</span><span>KML</span><span>SHAPE</span></div>
+    <div class="sp-user" id="spUser"><span class="sp-hello">Hoş geldiniz</span><b id="spName"></b><i id="spRole"></i></div>
+    <div class="sp-dev"><div class="splash-author">Yasin HAN</div><div class="splash-credit">Tasarım ve Geliştirme</div></div>
+    <div class="splash-ver">Sürüm 4.17.1</div>
+    <div class="splash-copy">© 2026 Yasin HAN · Tüm hakları saklıdır</div>
+  </div>
+  <div class="sp-skip">Geçmek için dokunun</div>
+</div>
+
+<!-- Üst başlık -->
+<header id="topbar">
+  <div class="tb-side left"><img class="logo-img" src="logo.png" alt="BOZOKLU HAN"></div>
+  <div class="tb-title" id="tbTitle" title="Yardım">
+    <div class="brand-name">HARİTA OKUYUCU</div>
+    <div class="brand-sub">NCZ·GML·DXF·JSON·KML·SHAPE</div>
+    <span class="tb-help">?</span>
+  </div>
+  <div class="tb-side right"><canvas id="flag" width="84" height="56" aria-label="Türk Bayrağı — dokununca çıkış" title="Çıkış"></canvas></div>
+</header>
+
+<!-- Harita -->
+<div id="map"></div>
+<div id="fileDrop" class="hidden">
+  <div class="fd-top">
+  <button id="fileDropBtn"><svg viewBox="0 0 24 24"><path d="M3 7h6l2 2h10v10H3z"/></svg><span id="fileDropLabel">DOSYA</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+  <button class="fab mini" id="btnNums" title="Ada / parsel numaraları" aria-label="Ada / parsel numaraları"><svg viewBox="0 0 24 24"><path d="M9 4L7 20M17 4l-2 16M4 9h16M3 15h16" fill="none"/></svg></button>
+  <button class="fab mini" id="btnMeasure" title="Ölçü"><svg viewBox="0 0 24 24"><path d="M3 17L17 3l4 4L7 21z" fill="none"/><path d="M7 13l2 2M10 10l2 2M13 7l2 2" fill="none"/></svg></button>
+<div id="compass" class="hidden" title="Pusula (dokun: aç/kapat)"><svg viewBox="0 0 100 100" class="cp-svg"><circle cx="50" cy="50" r="47" class="cp-bg"/><g id="cpRose" class="cp-rose"><line x1="50.00" y1="6.00" x2="50.00" y2="15.00" stroke-width="1.6"/><line x1="57.64" y1="6.67" x2="56.77" y2="11.59" stroke-width="0.8"/><line x1="65.05" y1="8.65" x2="63.34" y2="13.35" stroke-width="0.8"/><line x1="72.00" y1="11.89" x2="67.50" y2="19.69" stroke-width="1.1"/><line x1="78.28" y1="16.29" x2="75.07" y2="20.12" stroke-width="0.8"/><line x1="83.71" y1="21.72" x2="79.88" y2="24.93" stroke-width="0.8"/><line x1="88.11" y1="28.00" x2="80.31" y2="32.50" stroke-width="1.1"/><line x1="91.35" y1="34.95" x2="86.65" y2="36.66" stroke-width="0.8"/><line x1="93.33" y1="42.36" x2="88.41" y2="43.23" stroke-width="0.8"/><line x1="94.00" y1="50.00" x2="85.00" y2="50.00" stroke-width="1.6"/><line x1="93.33" y1="57.64" x2="88.41" y2="56.77" stroke-width="0.8"/><line x1="91.35" y1="65.05" x2="86.65" y2="63.34" stroke-width="0.8"/><line x1="88.11" y1="72.00" x2="80.31" y2="67.50" stroke-width="1.1"/><line x1="83.71" y1="78.28" x2="79.88" y2="75.07" stroke-width="0.8"/><line x1="78.28" y1="83.71" x2="75.07" y2="79.88" stroke-width="0.8"/><line x1="72.00" y1="88.11" x2="67.50" y2="80.31" stroke-width="1.1"/><line x1="65.05" y1="91.35" x2="63.34" y2="86.65" stroke-width="0.8"/><line x1="57.64" y1="93.33" x2="56.77" y2="88.41" stroke-width="0.8"/><line x1="50.00" y1="94.00" x2="50.00" y2="85.00" stroke-width="1.6"/><line x1="42.36" y1="93.33" x2="43.23" y2="88.41" stroke-width="0.8"/><line x1="34.95" y1="91.35" x2="36.66" y2="86.65" stroke-width="0.8"/><line x1="28.00" y1="88.11" x2="32.50" y2="80.31" stroke-width="1.1"/><line x1="21.72" y1="83.71" x2="24.93" y2="79.88" stroke-width="0.8"/><line x1="16.29" y1="78.28" x2="20.12" y2="75.07" stroke-width="0.8"/><line x1="11.89" y1="72.00" x2="19.69" y2="67.50" stroke-width="1.1"/><line x1="8.65" y1="65.05" x2="13.35" y2="63.34" stroke-width="0.8"/><line x1="6.67" y1="57.64" x2="11.59" y2="56.77" stroke-width="0.8"/><line x1="6.00" y1="50.00" x2="15.00" y2="50.00" stroke-width="1.6"/><line x1="6.67" y1="42.36" x2="11.59" y2="43.23" stroke-width="0.8"/><line x1="8.65" y1="34.95" x2="13.35" y2="36.66" stroke-width="0.8"/><line x1="11.89" y1="28.00" x2="19.69" y2="32.50" stroke-width="1.1"/><line x1="16.29" y1="21.72" x2="20.12" y2="24.93" stroke-width="0.8"/><line x1="21.72" y1="16.29" x2="24.93" y2="20.12" stroke-width="0.8"/><line x1="28.00" y1="11.89" x2="32.50" y2="19.69" stroke-width="1.1"/><line x1="34.95" y1="8.65" x2="36.66" y2="13.35" stroke-width="0.8"/><line x1="42.36" y1="6.67" x2="43.23" y2="11.59" stroke-width="0.8"/><text x="50.0" y="26.0" class="n">K</text><text x="78.0" y="54.0" class="">D</text><text x="50.0" y="82.0" class="">G</text><text x="22.0" y="54.0" class="">B</text><path d="M50 31 L53.6 50 L50 47.5 L46.4 50 Z" class="cp-nn"/><path d="M50 69 L53.6 50 L50 52.5 L46.4 50 Z" class="cp-ns"/></g><path d="M50 1.5 L55 10 L45 10 Z" class="cp-idx"/><circle cx="50" cy="50" r="3" class="cp-hub"/></svg><div class="cp-tx"><b id="cpDeg">—</b><i id="cpDir"></i></div><span id="cpAcc"></span></div>
+    <div id="measurebar" class="hidden">
+      <div class="m-tabs" id="mModeRow"></div>
+      <div id="measuretext">ÖLÇMEK İÇİN DOKUN</div>
+      <div class="mb-btns">
+        <button id="mUndo" class="chip">Geri</button>
+        <button id="mClear" class="chip">Sil</button>
+        <button id="mSave" class="chip">Kaydet</button>
+        <button id="mPdf" class="chip">PDF</button>
+        <button id="mClose" class="chip dark">Kapat</button>
+      </div>
+    </div>
+  </div>
+  <div id="fileDropList" class="hidden"></div>
+</div>
+<div id="crosshair" class="hidden"></div>
+<div id="tkgmBusy" class="hidden"><i></i>Parsel getiriliyor…</div>
+<button id="gpsPill" class="hidden" aria-label="GPS panelini aç"><i id="gpsPillDot"></i><span>GPS</span><b id="gpsPillAcc">±— m</b><em id="gpsPillTrk" style="display:none"></em><span id="gpsPillXY"></span><svg class="up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
+<div id="gpsPanel" class="hidden">
+  <div class="gp-head">
+    <button class="x gp-min" id="gpsHide" aria-label="Gizle"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+    <b>GPS KOORDİNAT</b>
+    <button class="x" id="gpsClose" aria-label="Kapat">✕</button>
+  </div>
+  <select id="gpsCrs" class="gp-crs hidden-sel"></select><button type="button" class="gp-crs gp-crs-btn" id="gpsCrsBtn"></button>
+  <div class="gp-accrow" id="gpsDot"><i></i><b id="gpsAccVal">—</b><span id="gpsAccTx">Konum bekleniyor…</span></div>
+  <div class="gp-vals">
+    <div><span id="gpsLa">Y</span><b id="gpsA">—</b></div>
+    <div><span id="gpsLb">X</span><b id="gpsB">—</b></div>
+    <div><span id="gpsHl">H</span><b id="gpsH">—</b></div>
+  </div>
+  <div class="gp-ll" id="gpsLL">—</div>
+  <div class="gp-row">
+    <label>İŞ ADI<span class="gp-job"><input id="gpsJob" autocomplete="off" enterkeyhint="done"><button type="button" id="gpsJobBtn" class="gp-job-b" aria-label="İşler"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/></svg></button></span></label>
+    <label>NOKTA NO<input id="gpsNo" autocomplete="off" inputmode="numeric"></label>
+    <label>OTO KAYIT<span class="gp-auto"><input id="gpsAutoSec" inputmode="numeric" autocomplete="off" maxlength="3"><em>sn</em><button type="button" id="gpsAuto" class="gp-auto-b" aria-label="Otomatik kayıt">▶</button></span></label>
+  </div>
+  <div class="gp-btns">
+    <button class="btn small" id="gpsAvg">Ort.10 sn</button>
+    <button class="btn small primary" id="gpsSave">Kaydet</button>
+    <button class="btn small" id="gpsList">Nokta (0)</button>
+    <button class="btn small gp-trk" id="gpsTrk"><i></i><span id="gpsTrkTx">İz</span></button>
+  </div>
+</div>
+<div id="coordbar" class="hidden"></div>
+<div id="navPill" class="hidden">
+  <div class="np-head">
+    <span class="np-ic"><svg viewBox="0 0 24 24"><path d="M12 2l7 19-7-4-7 4z"/></svg></span>
+    <div class="np-nm"><div class="np-name" id="npName"></div><div class="np-sub" id="npSub"></div></div>
+    <span class="np-mini" id="npMiniTx"></span>
+    <button class="np-tg" id="npToggle" aria-label="Kartı gizle / aç"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
+    <button class="np-end" id="npEnd" aria-label="Yol tarifini bitir"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="np-body" id="npBody">
+    <div class="np-line np-air" id="npAir"></div>
+    <div class="np-line np-road" id="npRoad"></div>
+    <button class="np-alt hidden" id="npAlt"></button>
+    <div class="np-go-row">
+      <button class="np-go hidden" id="npGo"><svg viewBox="0 0 24 24"><path d="M12 2l7 19-7-4-7 4z"/></svg>SEÇİLEN YERE GİT</button>
+      <button class="np-mini-b hidden" id="npRecenter" title="Konumuma dön / ortala" aria-label="Ortala"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" fill="none"/></svg></button>
+      <button class="np-mini-b hidden" id="npFit" title="Konum ve hedefi göster" aria-label="Konum ve hedef"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none"/></svg></button>
+      <button class="np-cancel" id="npCancel">İPTAL</button>
+    </div>
+  </div>
+</div>
+<div id="orthoNudge" class="hidden">
+  <div class="on-head"><span id="onName"></span><button class="on-done" id="onDone">Bitti</button></div>
+  <div class="on-step">Adım<button class="on-s" data-step="1">1 m</button><button class="on-s active" data-step="5">5 m</button><button class="on-s" data-step="20">20 m</button><button class="on-s" data-step="100">100 m</button></div>
+  <div class="on-pad">
+    <button class="on-n" data-dx="0" data-dy="1">▲</button>
+    <button class="on-w" data-dx="-1" data-dy="0">◄</button>
+    <button class="on-reset" id="onReset" aria-label="Sıfırla">⟳</button>
+    <button class="on-e" data-dx="1" data-dy="0">►</button>
+    <button class="on-s2" data-dx="0" data-dy="-1">▼</button>
+  </div>
+  <div class="on-hint">Ortofotoyu parsellere oturtmak için kaydırın · ⟳ sıfırlar</div>
+</div>
+<div id="cpFull" class="hidden"><div class="cpf-head">PUSULA</div><div id="cpFullDial"></div><div class="cpf-deg" id="cpFDeg">—</div><div class="cpf-dir" id="cpFDir"></div><div class="cpf-qib" id="cpFQib"></div><div class="cpf-acc" id="cpFAcc"></div><div class="cpf-decl" id="cpFDecl"></div><div class="cpf-hint">Telefonu yere paralel tutun · üst uç (yeşil üçgen) Kâbe işaretine gelince kıbledesiniz · Kapatmak için dokunun</div></div>
+<button id="cbPill" class="hidden" aria-label="Konum bilgisini göster"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg><span>Konum Bilgisi</span><svg class="up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
+<div id="selbar" class="hidden">
+  <button class="sb-x" id="sbX" aria-label="Kartı kapat"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="sb-top"><div class="sb-title" id="sbTitle"></div><div class="sb-sub" id="sbSub"></div></div>
+  <div class="sb-btns" id="sbBtns"></div>
+</div>
+
+<!-- Boş durum -->
+<div id="empty" class="hidden">
+  <div class="empty-card">
+    <div class="empty-icon">
+      <svg viewBox="0 0 64 64" width="56" height="56"><path d="M8 14l16-6 16 6 16-6v42l-16 6-16-6-16 6z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M24 8v42M40 14v42" stroke="currentColor" stroke-width="3"/></svg>
+    </div>
+    <div class="empty-title">Harita dosyası açın</div>
+    <div class="empty-text">Netcad <b>NCZ</b>, <b>GML</b>, <b>DXF</b>, <b>JSON</b>, <b>KML/KMZ</b> ve <b>SHAPE</b> dosyalarını açabilir, ada ve parsel numarasıyla arama yapabilirsiniz. <b>DWG/DGN</b> için DXF’e çevirin; <b>TIF/ECW</b> raster ve NetCAD raster haritaları <b>Ortofoto</b> olarak eklenir.</div>
+    <button class="btn primary" id="emptyOpen">Dosya Aç</button>
+  </div>
+</div>
+
+<button class="north-chip hidden" id="btnNorth" title="Kuzeyi yukarı al" aria-label="Kuzeyi yukarı al"><svg viewBox="0 0 24 24"><path d="M12 3l5 14-5-3.2L7 17z"/></svg><b>K</b></button>
+
+<button class="clean-exit hidden" id="btnCleanExit"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>ANA EKRAN</button>
+<button id="btnScreen2" title="2. Harita Ekranı (tam ekran)" aria-label="2. Harita Ekranı"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none"/></svg></button>
+
+<!-- Sağ kenar düğmeleri -->
+<div id="fabs">
+  <button class="fab" id="btnCross" title="Merkez koordinatı"><svg viewBox="0 0 24 24"><path d="M12 3v7M12 14v7M3 12h7M14 12h7" fill="none"/></svg></button>
+  <button class="fab" id="btnLocate" title="Konumum" aria-label="Konumum"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" /><circle cx="12" cy="12" r="7" fill="none"/></svg></button>
+  <button class="fab" id="btnFit" title="Tümünü göster"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none"/></svg></button>
+  <button class="fab" id="btnGps" title="GPS koordinat oku" aria-label="GPS koordinat oku"><svg viewBox="0 0 24 24"><path d="M4.9 9.6l4.5-4.5 3 3-4.5 4.5zM14.6 19.1l4.5-4.5-3-3-4.5 4.5z" fill="none"/><path d="M9.4 12.6l2 2M12 10l2 2" fill="none"/><path d="M17.5 3.5a5 5 0 0 1 3 3M16.5 6a2.2 2.2 0 0 1 1.5 1.5" fill="none"/></svg><span class="fab-tx">GPS</span></button>
+  <button class="fab" id="btnTkgm" title="Haritaya dokununca parseli TKGM'den getir" aria-label="Parsel getir"><svg viewBox="0 0 24 24"><path d="M4 5h11l5 5v9H4z" fill="none"/><path d="M8 12l3 3 5-6" fill="none"/></svg><span class="fab-tx">TKGM</span></button>
+  <button class="fab" id="btnColor" title="Çizgi rengi" aria-label="Çizgi rengi"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c1.2 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.2-.3-.4-.5-.8-.5-1.2 0-.9.8-1.6 1.7-1.6H17a4 4 0 0 0 4-4c0-4.6-4-8.3-9-8.3z" fill="none"/><circle class="pc1" cx="7.5" cy="11" r="1.4"/><circle class="pc2" cx="10" cy="7" r="1.4"/><circle class="pc3" cx="15" cy="7.5" r="1.4"/></svg></button>
+  <button class="fab-route" id="btnRoute" title="Yol tarifi (harita üzerinde)" aria-label="Yol tarifi"><span>YOL TARİFİ</span></button>
+  <button class="fab git-fab hidden" id="navFab" title="GİT Listesi" aria-label="GİT Listesi"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" fill="none"/></svg><span class="fab-tx">GİT</span><span class="fab-badge" id="navFabN">0</span></button>
+  <button class="ps-git" id="btnPs" title="TKGM Parsel Sorgu'ya git"><span>PRS</span><span>GİT</span></button>
+</div>
+
+<!-- Alt araç çubuğu -->
+<nav id="toolbar">
+  <button class="tb" id="tbSearch"><span class="tb-ic"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span><span class="tb-tx">Ada Parsel</span></button>
+  <button class="tb" id="tbLayers"><span class="tb-ic"><svg viewBox="0 0 24 24"><path d="M5 4h10l4 4v12H5z"/><path d="M15 4v4h4M8.5 13h7M8.5 16.5h5"/></svg></span><span class="tb-tx">Kayıtlı</span></button>
+  <button class="tb tb-main" id="tbOpen"><span class="tb-ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tb-tx">Dosya Aç</span></button>
+  <button class="tb" id="tbBase"><span class="tb-ic"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><span class="tb-tx">Altlık</span></button>
+  <button class="tb" id="tbMenu"><span class="tb-ic"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span><span class="tb-tx">Menü</span></button>
+</nav>
+
+<input type="file" id="fileInput" multiple style="display:none">
+<input type="file" id="orthoInput" multiple accept=".jpg,.jpeg,.png,.webp,.jgw,.jpgw,.pgw,.pngw,.tfw,.tifw,.wld,.wpg,.j2w,.prj" style="display:none">
+
+<!-- Alt paneller -->
+<div id="scrim" class="hidden"></div>
+
+<section class="sheet" id="sheetSearch">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2>Parsel Sorgu</h2><button class="x" data-close>✕</button></div>
+  <div class="q-card q-txtrow">
+    <label class="q-row"><span class="q-l">Metin Ara</span><i>:</i><input id="inText" autocomplete="off"></label>
+    <button class="q-tgo" id="btnTextFind" aria-label="Ara"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></button>
+    <button class="q-tclr" id="btnClearText" aria-label="Temizle">✕</button>
+  </div>
+  <div class="q-title">KÖY / MAHALLE / ADA / PARSEL</div>
+  <div class="tab" id="tab-ap">
+    <div class="q-card">
+      <label class="q-row"><span class="q-l">Köy/Mah.</span><i>:</i><input id="inMah" list="mahList" autocomplete="off"></label>
+      <label class="q-row"><span class="q-l">Ada No</span><i>:</i><input id="inAda" inputmode="numeric" autocomplete="off" ></label>
+      <label class="q-row"><span class="q-l">Parsel No</span><i>:</i><input id="inParsel" inputmode="numeric" autocomplete="off" ></label>
+    </div>
+    <datalist id="mahList"></datalist>
+    <div class="q-btns"><button class="q-clr" id="btnClearFind">Temizle</button><button class="q-go" id="btnFind"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>Sorgula</button></div>
+    <button class="btn wide rel-open" id="btnRel">İlişkili Kayıtları Listele (Not-Belge)</button>
+    <div class="hint" id="parcelStats"></div>
+  </div>
+  <div class="results" id="results"></div>
+</section>
+
+<section class="sheet" id="sheetLayers">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2>Dosyalar</h2><button class="x" data-close>✕</button></div>
+  <div id="layerList"></div>
+  <div class="row2 add-row"><button class="btn primary" id="btnAddFile">+ Dosya Ekle</button><button class="btn" id="btnAddFolder">Klasörden Toplu Ekle</button></div>
+  <div class="row2 set-row"><button class="btn" id="btnSetSave2">FARKLI KAYDET</button><button class="btn" id="btnSetLoad2">KAYITTAN GETİR</button></div>
+  <div class="sh-jump"><button id="layersTop" aria-label="Başa git"><svg viewBox="0 0 24 24"><path d="M6 18l6-6 6 6M6 11l6-6 6 6"/></svg></button><button id="layersJump" aria-label="Sona git"><svg viewBox="0 0 24 24"><path d="M6 6l6 6 6-6M6 13l6 6 6-6"/></svg></button></div>
+</section>
+
+<section class="sheet" id="sheetBase">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2>Altlık Harita</h2><button class="x" data-close>✕</button></div>
+  <div class="base-grid" id="baseGrid"></div>
+  <h3 class="sub">ORTOFOTO ALTLIK</h3>
+  <div class="row2 ortho-btns">
+    <button class="btn ortho-b" id="btnOrthoUrl"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><span>Çevrimiçi<br>Servis</span></button>
+    <button class="btn ortho-b" id="btnOrthoFile"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M4 18l5-5 4 4 3-3 4 4"/></svg><span>Dosyadan<br>Görüntü</span></button>
+  </div>
+  <div class="ortho-list" id="orthoList"></div>
+  <details class="base-help"><summary>Ortofoto nasıl eklenir?</summary><div class="hint ortho-hint"><b>Çevrimiçi:</b> kurumunuzun / HGM'nin döşeli ortofoto servis adresini ({z}/{x}/{y}) girin; altlık olarak eklenir.<br><b>Dosyadan:</b> JPG/PNG görüntü + aynı adlı <b>dünya dosyası</b> (.jgw/.tfw) birlikte seçin; yoksa köşe koordinatını (Y,X) ve <b>DOM</b>'u elle girersiniz. GeoTIFF/ECW tarayıcıda açılmaz, JPG+dünya dosyası olarak dışa aktarın. Ortofoto parsellerin altında görünür; saydamlığı ayarlayabilirsiniz.</div></details>
+  <div class="col-group">
+    <h3 class="sub">ÇİZGİ RENGİ</h3>
+    <div class="swatches" id="colorMode"></div>
+    <button class="btn wide bmc" id="btnMoreColor">DOSYA BAZINDA RENK, KALINLIK, NUMARA RENGİ</button>
+  </div>
+  <div class="col-group">
+    <label class="switch-row"><input type="checkbox" id="optLabels" checked><span>Ada / Parsel numaralarını göster</span></label>
+    <label class="switch-row"><input type="checkbox" id="optTexts" checked><span>Çizimdeki yazıları göster</span></label>
+    <label class="switch-row"><input type="checkbox" id="optPoints" checked><span>Noktaları göster</span></label>
+    <label class="switch-row"><input type="checkbox" id="optFill"><span>Parselleri hafif doldur</span></label>
+  </div>
+</section>
+
+<section class="sheet" id="sheetColor">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2>Parsel Sınır Rengi</h2><button class="x" data-close>✕</button></div>
+  <h3 class="sub">HANGİ DOSYA?</h3>
+  <div class="col-targets" id="colTargets"></div>
+  <div class="col-group">
+    <h3 class="sub">ÇİZGİ RENGİ</h3>
+    <div class="swatches" id="colSwatches"></div>
+  </div>
+  <div class="col-group">
+    <label class="custom-col"><span>Özel renk seç</span><input type="color" id="colCustom" value="#000000"></label>
+  </div>
+  <div class="col-group">
+    <h3 class="sub">DİĞER KATMANLAR (TK_YAPI, İRTİFAK, MÜŞTEMİLAT…)</h3>
+    <div class="swatches" id="colOther"></div>
+  </div>
+  <div class="col-group">
+    <h3 class="sub">ÇİZGİ KALINLIĞI</h3>
+    <div class="seg" id="colWidth">
+      <button class="seg-btn" data-w="0.75">İnce</button><button class="seg-btn" data-w="1">Normal</button><button class="seg-btn" data-w="1.5">Kalın</button><button class="seg-btn" data-w="2.2">Çok Kalın</button>
+    </div>
+  </div>
+  <div class="col-group">
+    <h3 class="sub">ADA / PARSEL NUMARA RENGİ</h3>
+    <div class="seg" id="colLabel">
+      <button class="seg-btn" data-l="auto">Otomatik</button><button class="seg-btn" data-l="#000000">Siyah</button><button class="seg-btn" data-l="#ffffff">Beyaz</button><button class="seg-btn" data-l="#ffeb3b">Sarı</button><button class="seg-btn" data-l="#e53935">Kırmızı</button><button class="seg-btn" data-l="line">Çizgi Rengi</button>
+    </div>
+  </div>
+  <div class="col-group">
+    <h3 class="sub">TKGM PARSEL SORGU RENGİ</h3>
+    <div class="swatches" id="colTkgm"></div>
+  </div>
+  <div class="hint">Renk, kalınlık ve numara rengi hemen haritaya uygulanır ve hatırlanır. TKGM Parsel Sorgu rengi, TKGM’den getirilen tüm parsellere uygulanır.</div>
+</section>
+
+<section class="sheet tall" id="sheetTrk">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2>GPS İzleri</h2><button class="x" data-close aria-label="Kapat">✕</button></div>
+  <div class="hint">Silmek istediğiniz izleri işaretleyin. Kayıt sürerken güncel iz silinirse kayıt sıfırdan devam eder.</div>
+  <div id="trkList"></div>
+  <div class="ds-actions trk-acts"><button class="btn small" id="trkSelAll">Tümünü Seç</button><button class="btn small danger" id="trkDelSel">Seçilenleri Sil</button><button class="btn small danger" id="trkDelAll">Tümünü Sil</button></div>
+</section>
+
+<section class="sheet tall" id="sheetGpsPts">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2>Ölçülen Noktalar</h2><button class="x" data-close>✕</button></div>
+  <div class="gps-jobbar"><button type="button" class="q-pick gj-pick" id="gpsViewBtn"></button><div class="gj-act"><b id="gpsActName"></b></div></div>
+  <div id="gpsPtList"></div>
+  <div class="ds-actions">
+    <button class="btn small primary" id="gpsExpNcn">.NCN Kaydet</button>
+    <button class="btn small primary" id="gpsExpTxt">.TXT Kaydet</button>
+    <button class="btn small" id="gpsShare">Paylaş</button>
+    <button class="btn small danger" id="gpsDelJob">İşi Sil</button>
+  </div>
+</section>
+
+<section class="sheet tall" id="sheetHelp">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2>Yardım</h2><button class="x" data-close>✕</button></div>
+  <div class="hint">Kısa kullanım rehberi</div>
+  <div class="hp-group">DOSYA</div><div class="hp"><i>1</i><div><b>Dosya aç</b><span>Alttaki yeşil <b>+</b> ya da <b>DOSYA</b> → türü seçin: NCZ · GML · DXF · JSON · KML/KMZ · SHAPE. Birden çok dosya seçebilirsiniz; hepsi haritada açılır. Aynı ad ve uzantıdaki dosya ikinci kez eklenmez, atlanır. CarryMap <b>CMF2</b> kapalı bir biçimdir, açılamaz; KML / SHAPE / GeoJSON / DXF olarak dışa aktarıp ekleyin.</span></div></div><div class="hp"><i>2</i><div><b>Koordinat sistemi</b><span>Dosya adında <b>ED50 / ITRF</b> ve <b>DOM</b> varsa o sistemde açılır. Yanlış yerdeyse <b>Dilim/DOM</b> ile düzeltin; mevzi haritalara dönüşüm girilebilir.</span></div></div><div class="hp"><i>3</i><div><b>Kayıtlı dosyalar</b><span>Açılan dosyalar <b>Kayıtlı</b>'da kalıcı saklanır ve sonraki açılışta yeniden okunmadan anında gelir; uygulama kaldığınız yerden açılır; datum, uzantı ve boyut görünür. <b>Klasörden Toplu Ekle</b>: türü seçin, yalnız o tür eklenir. Kapalı dosyaları kutucuklarla seçip <b>HARİTAYA EKLE</b> ile birlikte açın; hiç seçmeden basarsanız kapalıların hepsini birden eklemeyi önerir. Üstteki <b>Kayıtlılarda ara</b> kutusu dosya adına göre süzer. Mevzi koordinatlı dosyalar listenin en üstünde <b>MEVZİ KOORDİNATLI</b> başlığında bir arada durur; toplu eklemede uyarı verilir.</span></div></div><div class="hp-group">PARSEL</div><div class="hp"><i>4</i><div><b>Ada / parsel sorgu</b><span><b>Ada Parsel</b> → en üstte <b>Metin Ara</b> (yazılarda arama). Altında <b>Köy/Mah.</b>, <b>Ada No</b>, <b>Parsel No</b> → <b>Sorgula</b>. Köy/Mahalle boşsa tüm dosyalarda aranır; yazılırsa yalnız o köy / mahallede (parsel bilgisi ya da dosya adı) aranır, Türkçe harf farkı önemsizdir. Bulunamazsa <b>ARANAN BULUNAMADI</b> yazar. Alttaki çubukta <b>Bilgi · GİT+ · Yol Tarifi · PDF · Sil</b> bulunur.</span></div></div><div class="hp"><i>5</i><div><b>Bilgi kartı</b><span>Bilgiler ve köşe koordinatları tablodadır; <b>2 / 3 hane</b> seçilir. <b>Parsel Sorguya Git</b>, Google Earth ve Haritalar'dan bildirimle geri dönülür.</span></div></div><div class="hp"><i>6</i><div><b>PDF rapor</b><span>Ölçekli kroki (köşe no, kenar uzunlukları, kuzey), parsel bilgileri, koordinat tablosu, notlar ve belgelerle rapor hazırlar. <b>Kaydet · Aç / Yazdır · Paylaş</b>. Projeksiyon koordinatlarının yanında <b>Coğrafi Köşe Koordinatları</b> (WGS84 enlem / boylam) da yazılır.</span></div></div><div class="hp"><i>7</i><div><b>Not ve belge</b><span><b>Not Ekle</b> ile not yazın. <b>Kayıtları Bul</b> (ya da Ada Parsel → İlişkili Kayıtları Listele) tüm not ve belgeleri listeler, arar ve parsele götürür. <b>Belge / Fotoğraf Seç</b> ya da <b>Fotoğraf Çek</b> ile belgeyi parsele bağlayın.</span></div></div><div class="hp"><i>8</i><div><b>Parseli silme</b><span>Çubuktaki <b>çöp kutusu</b> ya da <b>Parseli Haritadan Sil</b>. Dosyanın aslı değişmez; <b>Kayıtlı → geri al</b> ile döner.</span></div></div><div class="hp-group">HARİTA</div><div class="hp"><i>9</i><div><b>Üst düğmeler</b><span>Sol: <b>#</b> numaralar · <b>cetvel</b> ölçü · <b>PRS GİT</b>. Sağ: <b>+</b> merkez koordinatı · <b>◎</b> konum · <b>[ ]</b> açık haritalara yakınlaş (uzaktaki başıboş nesneler dikkate alınmaz) · <b>GPS</b> · <b>TKGM</b> · <b>Palet</b> · <b>YOL TARİFİ</b>.</span></div></div><div class="hp"><i>10</i><div><b>Konum ve yön</b><span><b>◎</b> her dokunuşta konumunuza gider ve ortalar (panel açıksa görünen ortaya): 1. dokunuş takip, 2. dokunuş harita gidiş yönüne döner, 3. dokunuş kuzey yukarı. <b>GPS</b> düğmesi de açılırken konuma ortalar. Harita dönükken soldaki <b>K</b> ile kuzeye dönülür.</span></div></div><div class="hp"><i>11</i><div><b>Yol tarifi</b><span><b>YOL TARİFİ</b> (ya da Konum Bilgisi → <b>Yol Tarifi</b>): seçili parsel, haritadan parsel / nokta ya da <b>Kayıtlı Haritalardan Seç</b>; <b>SEÇİLEN YERE GİT</b> ile başlar. <b>Haritadan Nokta Seç</b>: dokunduğunuz yere isim verirsiniz; nokta turuncu <b>bayrak (HSN)</b> ile işaretlenir. Açılan pencerede <b>GİT</b> hemen yola başlar, <b>KAYDET</b> noktayı GİT listesine (turuncu <b>GİT</b> düğmesi) ekler. Yol başladığında kartta küçük <b>ortala</b> ve <b>konum+hedef</b> düğmeleri çıkar. Eflatun: yol rotası, kırmızı kesikli: kuş uçuşu hat. Kart <b>˄</b> ile küçülür, <b>✕</b> ile biter. <b>GİT Listesi:</b> parsele dokunup çubukta <b>GİT+</b> ile listeye ekleyin; sağdaki <b>GİT</b> düğmesi (ya da Menü → GİT Listesi) listeyi açar, her satırda konuma en yakın <b>mesafe</b> ve <b>GİT</b> vardır. GİT → 2. ekranda harita gidiş yönüne döner, kalan mesafe canlı yazılır; hedef parselin size <b>en yakın kenarıdır</b>.</span></div></div><div class="hp"><i>12</i><div><b>Haritayı temizle</b><span>Sol üstteki <b>logoya</b> dokunun: <b>Tümünü Temizle</b> haritadaki bütün dosyaları, seçimi, hedefi ve ölçüyü kaldırır (dosyalar <b>Kayıtlı</b>'da kalır). <b>Yalnız Seçim ve İşaretler</b> dosyalara dokunmaz.</span></div></div><div class="hp"><i>13</i><div><b>2. harita ekranı</b><span>Menü → <b>2. HARİTA EKRANI</b> ya da alt bardaki <b>→</b> (sağ ok) düğmesi: banner, düğmeler ve alt bar gizlenir; yalnız harita, konum düğmesi ve yol tarifi kartı kalır. Dönmek için <b>← ANA EKRAN</b> (sol ok) düğmesi.</span></div></div><div class="hp"><i>14</i><div><b>Renkler</b><span><b>TK_PARSEL</b> siyah, diğer TK katmanları kırmızı açılır. <b>Palet</b>'ten çizgi rengi, diğer katman rengi, kalınlık ve numara rengi değişir.</span></div></div><div class="hp"><i>15</i><div><b>TKGM'den parsel</b><span><b>TKGM</b> açıkken haritaya dokunun; parsel gelir, <b>Mahalle_Ada_Parsel</b> adıyla ve <b>ITRF96</b> koordinatlı olarak Kayıtlı'ya kaydedilir. Çubuktaki <b>Kaldır</b> ile silinir.</span></div></div><div class="hp"><i>16</i><div><b>Parsel Sorgu'dan getir</b><span><b>PRS GİT</b> doğrudan <b>Parsel Sorgudan Getir</b> kartını açar: il, ilçe ve köy / mahalleye dokunun, açılan tabloda yazın ya da dokunarak seçin (Enter ilk eşleşeni seçer); ada ve parseli yazın → <b>PARSELİ HARİTAYA GETİR</b>. Parsel TKGM'den gelir, <b>Mahalle_Ada_Parsel</b> adıyla ITRF96 olarak otomatik kaydedilir.</span></div></div><div class="hp"><i>17</i><div><b>Altlık ve ortofoto</b><span><b>Altlık</b>'tan uydu ya da harita seçin. Çıkışta <b>Kaydet</b> derseniz görüntü internetsiz de görünür. <b>ORTOFOTO ALTLIK</b>: <b>Çevrimiçi Servis</b> ile kurumunuzun/HGM'nin döşeli ortofoto adresini ({z}/{x}/{y}) girip altlık ekleyin; <b>Dosyadan Görüntü</b> ile JPG/PNG + aynı adlı dünya dosyasını (.jgw/.tfw) birlikte seçin (yoksa köşe koordinatı Y,X ve DOM elle girilir). Ortofoto parsellerin altında görünür, saydamlığı ayarlanır. GeoTIFF/ECW tarayıcıda açılmaz; JPG + dünya dosyası olarak dışa aktarın.</span></div></div><div class="hp-group">SAHA</div><div class="hp"><i>18</i><div><b>GPS ile nokta</b><span><b>GPS</b> → sistemi seçin; <b>±</b> doğruluk ve uydu sayısıdır. <b>İş adı</b> (boşsa otomatik) ve nokta no → <b>Kaydet</b> ya da <b>Ort.10 sn</b>. <b>OTO. KAYIT</b>: saniyeyi yazıp <b>▶</b> ile her N saniyede bir nokta otomatik kaydedilir; <b>■</b> durdurur.</span></div></div><div class="hp"><i>19</i><div><b>Noktalar ve panel</b><span><b>Nokta</b>'dan .NCN / .TXT alın. Paneli <b>⌄</b> ile gizleyin; GPS çalışır, alttaki <b>GPS</b> çubuğuyla geri açılır. Kaydedilen nokta tek satırda görünür: <b>NN-105 Y-… X-… (SN-3)</b> · SN: ölçüm sayısı.</span></div></div><div class="hp"><i>20</i><div><b>GPS izi</b><span><b>İz</b> yürüdüğünüz yolu çizer. Kaydı başlatın / durdurun, izi gösterin / gizleyin, <b>KML · GPX · TXT</b> olarak kaydedin. <b>Kayıtlı İzler</b>: eski izler saklanır; işaretleyip <b>Seçilenleri Sil</b> ya da <b>Tümünü Sil</b>.</span></div></div><div class="hp"><i>21</i><div><b>Pusula</b><span>Gerçek kuzeyi gösterir. <b>Tek dokunuş</b> aç / kapat, <b>çift dokunuş</b> tam ekran. Turuncu noktada telefonla havada <b>8</b> çizin.</span></div></div><div class="hp-group">AYARLAR</div><div class="hp"><i>22</i><div><b>Kullanıcı ve açılış</b><span><b>Menü → Kullanıcı Bilgileri</b>: ad soyad, unvan ve kurum açılışta ve PDF raporunda (Hazırlayan, imza) görünür. Açılış animasyonu Tam · Kısa · Kapalı seçilebilir.</span></div></div><div class="hp"><i>23</i><div><b>Yedekleme</b><span><b>Menü → Tümünü Yedekle</b>: dosyalar, notlar, belgeler, GPS ve ayarlar tek .zip. <b>Yedekten Geri Yükle</b> ile geri alınır.</span></div></div><div class="hp"><i>24</i><div><b>Lisans</b><span>Sağ üstteki <b>bayrağa</b> dokununca uygulamadan hızlı çıkılır. 7 gün deneme (en çok 5 harita dosyası, günde 5 TKGM parseli, PDF'lerde DENEME SÜRÜMÜ filigranı). <b>Menü → Lisans</b>'taki cihaz kodunu gönderin, gelen anahtarı girin. İletişim: 0 532 234 18 06</span></div></div>
+  <div class="help-foot">BOZOKLU HAN HARİTA OKUYUCU · Yasin HAN</div>
+</section>
+
+<section class="sheet" id="sheetMenu">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2>Menü</h2><button class="x" data-close>✕</button></div>
+  <div class="row2 menu-top"><button class="btn primary" id="btnHelp">Yardım</button><button class="btn" id="btnLicTop">Lisans</button></div>
+  <button class="btn clean-btn" id="btnCleanMap">2. HARİTA EKRANI <small>(menüsüz, tam ekran)</small></button>
+  <button class="btn clean-btn" id="btnNavList"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>GİT Listesi <small id="navListMenuN">(0)</small></button>
+  <div class="row2 web-only">
+    <button class="btn clean-btn" id="btnInstall"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 7v7M8.5 10.5L12 14l3.5-3.5"/></svg>Ana Ekrana / Masaüstüne Ekle</button>
+    <button class="btn clean-btn" id="btnSetup"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Kurulum ve İzinler</button>
+  </div>
+  <div class="menu-sec">
+  <h3 class="sub">LİSANS</h3>
+  <div class="lic-card" id="licCard"></div>
+  </div>
+  <div class="menu-sec">
+  <h3 class="sub">TEMA</h3>
+  <div class="themes" id="themeGrid"></div>
+  </div>
+  <div class="menu-sec">
+  <h3 class="sub">ÇEVRİMDIŞI ALTLIK</h3>
+  <div class="hint">Haritada açtığınız uydu / altlık görüntüleri cihaza kaydedilir; internet yokken de görünür.</div>
+  <div class="off-stat" id="offStat">—</div>
+  <label class="switch-row"><input type="checkbox" id="optAskTiles" checked><span>Çıkışta görüntüleri kaydetmeyi sor</span></label>
+  <div class="off-btns"><button class="btn primary" id="btnSaveTiles">Şimdi Kaydet</button><button class="btn danger" id="btnClearTiles">Kayıtlıları Sil</button></div>
+  </div>
+  <div class="menu-sec">
+  <h3 class="sub">KULLANICI BİLGİLERİ</h3>
+  <div class="hint">Adınız açılış ekranında görünür; PDF raporlarında “Hazırlayan” olarak yazılır.</div>
+  <div class="usr-form">
+    <label class="field"><span>AD SOYAD</span><input id="usrName" maxlength="40" autocomplete="name"></label>
+    <div class="row2">
+      <label class="field"><span>UNVAN</span><input id="usrTitle" maxlength="40"></label>
+      <label class="field"><span>KURUM / FİRMA</span><input id="usrOrg" maxlength="50"></label>
+    </div>
+    <div class="dec-row"><span>Açılış animasyonu</span><div class="dec-seg" id="spModeSeg"><button data-m="full">Tam</button><button data-m="short">Kısa</button><button data-m="off">Kapalı</button></div></div>
+    <button class="btn primary wide" id="usrSave">Kaydet</button>
+  </div>
+  </div>
+  <div class="menu-sec">
+  <h3 class="sub">YEDEKLEME</h3>
+  <div class="hint">Kayıtlı dosyalar, notlar, ilişkili belgeler/fotoğraflar, GPS noktaları, GPS izi, harita setleri ve ayarlar istediğiniz adla tek bir yedek dosyasına (.zip) kaydedilir. “Yedekten Çağır” ile geri yüklenir.</div>
+  <div class="off-btns bk-btns"><button class="btn primary" id="btnBackup">Tümünü Yedekle<br><small>(adını siz verin)</small></button><button class="btn" id="btnRestore">Yedekten Çağır<br><small>(.zip seçin)</small></button></div>
+  <div class="hint">Açık haritaları (Dilim/DOM ve renkleriyle) bir adla saklayıp sonra tek dokunuşla yeniden açabilirsiniz.</div>
+  <div class="off-btns bk-btns"><button class="btn" id="btnSetSave">FARKLI KAYDET</button><button class="btn" id="btnSetLoad">KAYITTAN GETİR</button></div>
+  <input type="file" id="bkInput" accept=".zip,application/zip" style="display:none">
+  </div>
+  <div class="menu-sec">
+  <h3 class="sub">VARSAYILAN KOORDİNAT SİSTEMİ</h3>
+  <div class="hint">Dosyada koordinat sistemi bilgisi yoksa bu ayar kullanılır.</div>
+  <div class="row2">
+    <label class="field center"><span>DATUM</span>
+      <select id="defDatum"><option value="ITRF">ITRF96</option><option value="ED50">ED50</option></select></label>
+    <label class="field center"><span>DOM</span>
+      <select id="defDom"></select></label>
+  </div>
+  <div class="dec-row"><span>Koordinat ondalık hanesi</span><div class="dec-seg" id="decSeg"><button data-d="2">2 hane</button><button data-d="3">3 hane</button></div></div>
+  <label class="switch-row"><input type="checkbox" id="optAskCrs" checked><span>Her dosyada sistem ve DOM sorulsun</span></label>
+  </div>
+  <button class="btn wide" id="btnClearAll">Haritadaki tüm dosyaları kapat</button>
+  <div class="about">
+    <img class="logo-img mid" src="logo.png" alt="BOZOKLU HAN">
+    <div class="about-name">Yasin HAN</div>
+    <div class="about-credit">Tasarım ve Geliştirme</div>
+    <div class="about-ver">BOZOKLUHAN Harita Okuyucu · Sürüm 4.17.1</div>
+    <div class="copy-text"><b>© 2026 Yasin HAN · Tüm hakları saklıdır.</b> BOZOKLU HAN HARİTA OKUYUCU uygulamasının kaynak kodu, arayüz tasarımı, logosu, adı ve belgeleri dahil tüm mali ve manevi hakları <b>Yasin HAN</b>'a aittir. Uygulama, 5846 sayılı Fikir ve Sanat Eserleri Kanunu'nun 2. maddesi kapsamında korunan bir harita okuyucu programıdır. Yazılı izin alınmadan, kanunun izin verdiği haller dışında çoğaltılması, tema ve arayüzünün değiştirilmesi, kodunun değiştirilmesi, kaynak koda dönüştürülmesi, dağıtılması, satılması veya kiralanması yasaktır; aykırı davranışlar FSEK 68. ve 71. maddeleri uyarınca hukuki ve cezai sorumluluk doğurur.</div>
+    <div class="about-small">NCZ çözümleme: cad2geo (GPL-2.0) bulguları · Harita: Leaflet, proj4js · Altlıklar: Esri, OpenStreetMap katkıcıları, OpenTopoMap</div>
+  </div>
+</section>
+
+<section class="sheet" id="sheetPsGet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2>Parsel Sorgudan Getir</h2><button class="x" data-close aria-label="Kapat">✕</button></div>
+  <div class="q-hint">TKGM Parsel Sorgu'dan haritaya gelir.<br><b>Mahalle_Ada_Parsel</b> adıyla <b>ITRF96</b> koordinatlı otomatik kaydedilir.</div>
+  <div class="q-card">
+    <label class="q-row"><span class="q-l">İl</span><i>:</i><button type="button" class="q-pick ph" id="psgIl">İl seçin</button></label>
+    <label class="q-row"><span class="q-l">İlçe</span><i>:</i><button type="button" class="q-pick ph" id="psgIlce" disabled>Önce il seçin</button></label>
+    <label class="q-row"><span class="q-l">Köy/Mahalle</span><i>:</i><button type="button" class="q-pick ph" id="psgMah" disabled>Önce ilçe seçin</button></label>
+    <label class="q-row"><span class="q-l">Ada</span><i>:</i><input id="psgAda" inputmode="numeric" autocomplete="off"></label>
+    <label class="q-row"><span class="q-l">Parsel</span><i>:</i><input id="psgParsel" inputmode="numeric" autocomplete="off"></label>
+  </div>
+  <div class="psg-msg" id="psgMsg"></div>
+  <button class="q-go" id="psgGo"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.8-6.5-11A6.5 6.5 0 0 1 18.5 10c0 5.2-6.5 11-6.5 11z"/><path d="M12 7v6M9.5 10.5L12 13l2.5-2.5"/></svg>Parseli Haritaya Getir</button>
+  <button class="psg-link" id="psgOpenPs">TKGM PARSEL SORGU / WEB’DE AÇ ›</button>
+</section>
+
+<section class="sheet tall" id="sheetNav">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2>GİT Listesi</h2><button class="x" data-close aria-label="Kapat">✕</button></div>
+  <details class="nav-help"><summary>Nasıl kullanılır?</summary><div class="hint">Haritada parsele dokunun → alttaki çubukta <b>GİT+</b> ile listeye ekleyin. ↑↓ ile sıralayın. Her satırdaki <b>GİT</b> ile hedefe yönlendirir: harita gidiş yönüne döner, kalan mesafeyi yazar.</div></details>
+  <div class="nav-top"><span id="navCount"></span><button class="btn danger sm" id="btnNavClear">Tümünü Sil</button></div>
+  <div id="navListBox"></div>
+</section>
+
+<section class="sheet tall" id="sheetNavLib">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2>Kayıtlıdan Yol Tarifi</h2><button class="x" data-close aria-label="Kapat">✕</button></div>
+  <div class="hint">Hedef dosyayı seçin. Tek parselli dosyada yol tarifi hemen hazırlanır; çok parselli dosyada haritada hedef parsele dokunursunuz.</div>
+  <div class="lib-search"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><input type="text" id="nlQ" placeholder="Ara" autocomplete="off"></div>
+  <div id="nlList"></div>
+</section>
+
+<section class="sheet tall" id="sheetRel">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2>İlişkili Kayıtlar</h2><button class="x" data-close aria-label="Kapat">✕</button></div>
+  <div class="hint" id="relSum"></div>
+  <div class="lib-search rel-search"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><input type="text" id="relQ" placeholder="Ara" autocomplete="off"></div>
+  <div class="rel-top"><span class="rel-hint-sm">Satırı silmek için ✕ · hepsi için sağdaki düğme</span><button class="btn danger sm" id="btnRelClear">Tümünü Sil</button></div>
+  <div id="relList"></div>
+</section>
+
+<section class="sheet tall" id="sheetInfo">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head"><button class="back" data-close aria-label="Haritaya dön"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Harita</span></button><h2 id="infoTitle">Bilgi</h2><button class="x" data-close>✕</button></div>
+  <div id="infoBody"></div>
+</section>
+
+<!-- Koordinat sistemi seçimi -->
+<div class="modal hidden" id="crsModal">
+  <div class="modal-card">
+    <h2 id="crsTitle">Koordinat Sistemi ve DOM</h2>
+    <div class="modal-file" id="crsFile"></div>
+    <div class="hint" id="crsReason"></div>
+    <label class="field center"><span>HANGİ SİSTEMDE?</span>
+      <select id="crsDatum">
+        <option value="ITRF">ITRF96 (TUREF) — güncel kadastro</option>
+        <option value="ED50">ED50 — eski paftalar</option>
+        <option value="WGS84">WGS84 Coğrafi (Enlem / Boylam)</option>
+        <option value="LOCAL">Mevzi (yerel) harita — dönüşüm ile</option>
+      </select></label>
+    <div id="crsLocal" class="hidden">
+      <div class="hint">Mevzi haritayı yerine oturtmak için dönüşüm değerlerini girin. <b>Bilmiyorsanız boş bırakın</b>; harita boş altlıkta açılır.</div>
+      <div class="seg" id="locMode">
+        <button class="seg-btn" data-m="unknown">Bilinmiyor</button>
+        <button class="seg-btn" data-m="params">Parametre</button>
+        <button class="seg-btn" data-m="points">2 Ortak Nokta</button>
+      </div>
+      <div id="locTarget">
+        <label class="field center"><span>ÜLKE SİSTEMİ (HEDEF)</span>
+          <select id="locDatum"><option value="ITRF">ITRF96 (TUREF)</option><option value="ED50">ED50</option></select></label>
+      </div>
+      <div id="locParams" class="loc-grid hidden">
+        <label class="field center"><span>ÖTELEME ΔY (m)</span><input id="lpY" inputmode="decimal" placeholder="0"></label>
+        <label class="field center"><span>ÖTELEME ΔX (m)</span><input id="lpX" inputmode="decimal" placeholder="0"></label>
+        <label class="field center"><span>DÖNÜKLÜK (grad)</span><input id="lpR" inputmode="decimal" placeholder="0"></label>
+        <label class="field center"><span>ÖLÇEK (ppm)</span><input id="lpS" inputmode="decimal" placeholder="0"></label>
+      </div>
+      <div id="locPoints" class="hidden">
+        <div class="loc-head"><span></span><span>MEVZİ Y</span><span>MEVZİ X</span><span>ÜLKE Y</span><span>ÜLKE X</span></div>
+        <div class="loc-row"><b>1</b><input id="p1y" inputmode="decimal"><input id="p1x" inputmode="decimal"><input id="P1y" inputmode="decimal"><input id="P1x" inputmode="decimal"></div>
+        <div class="loc-row"><b>2</b><input id="p2y" inputmode="decimal"><input id="p2x" inputmode="decimal"><input id="P2y" inputmode="decimal"><input id="P2x" inputmode="decimal"></div>
+      </div>
+    </div>
+    <div class="row2" id="crsProjRow">
+      <label class="field center"><span>DİLİM</span>
+        <select id="crsZone"><option value="3">3 derece (TM)</option><option value="6">6 derece (UTM)</option></select></label>
+      <label class="field center"><span>DOM</span><select id="crsDom"></select></label>
+    </div>
+    <div class="crs-summary" id="crsSummary"></div>
+    <label class="switch-row"><input type="checkbox" id="crsSwap"><span>Y ve X yer değiştirsin</span></label>
+    <label class="switch-row hidden" id="crsAllRow"><input type="checkbox" id="crsAll" checked><span id="crsAllText">Diğer dosyalara da uygula</span></label>
+    <div class="modal-btns row2"><button class="btn" id="crsCancel">Vazgeç</button><button class="btn primary" id="crsOk">Haritada Aç</button></div>
+  </div>
+</div>
+
+<div class="modal hidden" id="fmtModal">
+  <div class="modal-card fmt-card">
+    <h2 id="fmtTitle">Hangi dosyayı açacaksınız?</h2>
+    <div class="hint" id="fmtHint">Yükleyeceğiniz dosyanın türünü seçin</div>
+    <div class="fmt-grid">
+      <button data-f="ncz"><b>NCZ</b><i>Netcad</i></button>
+      <button data-f="gml"><b>GML</b><i>TKGM / MEGSİS</i></button>
+      <button data-f="dxf"><b>DXF-DWG</b><i>AutoCAD</i></button>
+      <button data-f="dgn"><b>DGN</b><i>Microstation</i></button>
+      <button data-f="json"><b>JSON</b><i>GeoJSON</i></button>
+      <button data-f="kml"><b>KML / KMZ</b><i>Google Earth</i></button>
+      <button data-f="shp"><b>SHAPE</b><i>.shp · .zip</i></button>
+      <button data-f="raster"><b>TIF / ECW</b><i>Ortofoto</i></button>
+    </div>
+    <button class="btn wide primary fmt-all" data-f="all">Tüm Desteklenen Dosyalar</button>
+    <button class="btn wide" id="fmtCancel">Vazgeç</button>
+  </div>
+</div>
+
+<div class="modal hidden" id="pickModal">
+  <div class="modal-card pk-card">
+    <div class="pk-head"><b id="pkTitle"></b><button class="pk-x" id="pkClose" aria-label="Kapat">✕</button></div>
+    <div class="pk-search"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><input id="pkQ" placeholder="YAZIN / ARA" autocomplete="off" enterkeyhint="go"></div>
+    <div class="pk-scroll"><div class="pk-grid" id="pkGrid"></div></div>
+  </div>
+</div>
+<div class="modal hidden" id="setupWiz">
+  <div class="modal-card sw-card">
+    <div class="sw-dots" id="swDots"></div>
+    <div class="sw-ic" id="swIc"></div>
+    <h2 id="swTitle"></h2>
+    <div class="sw-text" id="swText"></div>
+    <button class="btn primary sw-yes" id="swYes">Evet</button>
+    <button class="sw-no" id="swNo">Şimdi değil</button>
+  </div>
+</div>
+<div class="modal hidden" id="userModal">
+  <div class="modal-card note-card">
+    <h2>Hoş geldiniz</h2>
+    <div class="hint">Adınızı yazın; açılış ekranında ve PDF raporlarında görünsün. İsterseniz sonra Menü → Kullanıcı Bilgileri’nden değiştirebilirsiniz.</div>
+    <label class="field"><span>AD SOYAD</span><input id="umName" maxlength="40" autocomplete="name"></label>
+    <label class="field"><span>UNVAN (İSTEĞE BAĞLI)</span><input id="umTitle" maxlength="40"></label>
+    <div class="row2"><button class="btn" id="umLater">Daha Sonra</button><button class="btn primary" id="umSave">Kaydet</button></div>
+  </div>
+</div>
+
+<div class="modal hidden" id="noteModal">
+  <div class="modal-card note-card">
+    <h2 id="noteTitle">Not Ekle</h2>
+    <div class="hint" id="noteFor"></div>
+    <textarea id="noteText" rows="6" placeholder="Bu parselle ilgili notunuzu yazın…"></textarea>
+    <div class="row2"><button class="btn" id="noteCancel">Vazgeç</button><button class="btn primary" id="noteSave">Kaydet</button></div>
+  </div>
+</div>
+
+<div class="modal hidden" id="docModal">
+  <div class="modal-card doc-card">
+    <div class="doc-name" id="docName"></div>
+    <div class="doc-img"><img id="docImg" alt=""></div>
+    <div class="doc-btns"><button class="btn" id="docExt">Aç</button><button class="btn" id="docShare">Paylaş</button><button class="btn primary" id="docClose">Kapat</button></div>
+  </div>
+</div>
+<input type="file" id="docInput" multiple style="display:none">
+
+<div class="modal hidden" id="askModal">
+  <div class="modal-card">
+    <h2 id="askTitle"></h2>
+    <div class="hint" id="askText"></div>
+    <div id="askBtns" class="ask-btns"></div>
+  </div>
+</div>
+
+<div class="modal hidden" id="licModal">
+  <div class="modal-card lic-modal">
+    <img class="logo-img mid" src="logo.png" alt="BOZOKLU HAN">
+    <h2 id="licTitle">Lisans</h2>
+    <div class="lic-state" id="licState"></div>
+    <div class="lic-box">
+      <div class="lic-lbl">CİHAZ KODU</div>
+      <div class="lic-dev"><b id="licDev">----</b><button class="chip" id="licCopy">Kopyala</button></div>
+    </div>
+    <label class="field center"><span>LİSANS ANAHTARI</span><input id="licKey" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX"></label>
+    <button class="btn primary wide" id="licActivate">Lisansı Etkinleştir</button>
+    <div class="lic-contact">
+      <div class="lic-lbl">LİSANS İÇİN İLETİŞİM</div>
+      <div class="lic-name">Yasin HAN</div>
+      <div class="lic-btns"><button class="btn small" id="licWa">WhatsApp</button><button class="btn small" id="licTel">Ara</button><button class="btn small" id="licMail">E-posta</button></div>
+      <div class="lic-small">0 532 234 18 06 · yasinhan@gmail.com</div>
+    </div>
+    <details class="lic-info" id="licInfo">
+      <summary>Deneme sürümü ve kısıtlamalar</summary>
+      <ul>
+        <li><b>7 günlük deneme:</b> Uygulama ilk kurulduğu günden itibaren 7 gün ücretsiz kullanılabilir. Denemede en çok <b>5 harita dosyası</b> eklenebilir, günde en çok <b>5 TKGM parseli</b> getirilebilir ve PDF raporlarına <b>DENEME SÜRÜMÜ</b> filigranı basılır. Süre bitince uygulama lisans girilene kadar kilitlenir.</li>
+        <li><b>Süre bitince:</b> Harita ekranı kilitlenir; dosya açma, ada/parsel sorgu, ölçü, koordinat paylaşımı, yol tarifi, PS.GİT ve çevrimdışı altlık kullanılamaz.</li>
+        <li><b>Verileriniz silinmez:</b> Kayıtlı dosyalarınız, ayarlarınız ve kaydedilen uydu görüntüleri korunur; lisans girildiğinde aynen açılır.</li>
+        <li><b>Tek cihaz:</b> Lisans, yukarıdaki cihaz koduna özeldir; başka telefonda çalışmaz. Telefon değişikliği veya fabrika ayarlarına dönüşte yeni cihaz kodu için lisans yenilenir.</li>
+        <li><b>Lisans türleri:</b> Süresiz lisans ya da belirli bir tarihe kadar geçerli (örneğin 1 yıllık) lisans verilebilir.</li>
+        <li><b>Tarih/saat:</b> Telefonun tarihi geri alınırsa deneme süresi sona ermiş sayılır.</li>
+        <li><b>İnternet:</b> Lisans etkinleştirmek için internet gerekmez.</li>
+      </ul>
+    </details>
+    <div class="copy-text small"><b>© 2026 Yasin HAN · Tüm hakları saklıdır.</b> BOZOKLU HAN HARİTA OKUYUCU uygulamasının kaynak kodu, arayüz tasarımı, logosu, adı ve belgeleri dahil tüm mali ve manevi hakları <b>Yasin HAN</b>'a aittir. Uygulama, 5846 sayılı Fikir ve Sanat Eserleri Kanunu'nun 2. maddesi kapsamında korunan bir harita okuyucu programıdır. Yazılı izin alınmadan, kanunun izin verdiği haller dışında çoğaltılması, tema ve arayüzünün değiştirilmesi, kodunun değiştirilmesi, kaynak koda dönüştürülmesi, dağıtılması, satılması veya kiralanması yasaktır; aykırı davranışlar FSEK 68. ve 71. maddeleri uyarınca hukuki ve cezai sorumluluk doğurur.</div>
+    <button class="btn wide" id="licClose">Kapat</button>
+  </div>
+</div>
+
+<div id="loading" class="hidden"><div class="spinner"></div><div id="loadingText">Okunuyor…</div></div>
+<div id="toast" class="hidden"></div>
+
+<script src="lib/leaflet.js"></script>
+<script src="lib/leaflet-rotate.js"></script>
+<script src="lib/proj4.js"></script>
+<script src="lib/rbush.min.js"></script>
+<script src="lib/dxf-parser.js"></script>
+<script src="lib/pako_inflate.min.js"></script>
+<script src="parsers.js"></script>
+<script src="geo.js"></script>
+<script src="license.js"></script>
+<script src="app.js"></script>
+<script>if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')){navigator.serviceWorker.register('sw.js').catch(function(){});}</script>
+</body>
+</html>

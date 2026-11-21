@@ -1,5 +1,5 @@
 // BZK Harita – çevrimdışı çalışma: uygulama dosyaları önbellekte, harita karoları ağdan (varsa önbellekten)
-var C = 'bzk-harita-4.18.11', T = 'bzk-karolar';
+var C = 'bzk-harita-4.18.12', T = 'bzk-karolar';
 var APP = ["app.js", "apple-touch-icon.png", "geo.js", "icon-192.png", "icon-512-maskable.png", "icon-512.png", "index.html", "lib/dxf-parser.js", "lib/kaushan.woff2", "lib/leaflet-rotate.js", "lib/leaflet.css", "lib/leaflet.js", "lib/pako_inflate.min.js", "lib/proj4.js", "lib/rbush.min.js", "license.js", "logo.png", "manifest.webmanifest", "parsers.js", "style.css"];
 self.addEventListener('install', function (e) { e.waitUntil(caches.open(C).then(function (c) { return c.addAll(APP.map(function (f) { return './' + f; }).concat(['./'])); }).then(function () { return self.skipWaiting(); })); });
 self.addEventListener('activate', function (e) { e.waitUntil(caches.keys().then(function (ks) { return Promise.all(ks.filter(function (k) { return k !== C && k !== T; }).map(function (k) { return caches.delete(k); })); }).then(function () { return self.clients.claim(); })); });

@@ -1,4 +1,4 @@
-BOZOKLU HAN HARİTA OKUYUCU — HTML SÜRÜMÜ 4.18.2 (iPhone ve Android telefonlar)
+BOZOKLU HAN HARİTA OKUYUCU — HTML SÜRÜMÜ 4.18.3 (iPhone ve Android telefonlar)
 © 2026 Yasin HAN · 0 532 234 18 06 · yasinhan@gmail.com
 
 Bu klasör telefonda tarayıcıdan çalışan uygulamadır. Telefonda kalıcı ve internetsiz çalışması için
@@ -36,4 +36,4 @@ D) BİLMENİZ GEREKENLER
  • Uydu altlığı ve yol tarifi rotası internet gerektirir.
  • Güncelleme: yeni sürümün dosyalarını aynı depoya yükleyin; telefonda uygulama bir sonraki açılışta yenilenir.
 
-Tek dosyalık BZK_HARITA_OKUYUCU_v4.18.2.html bilgisayarda (Chrome/Edge) çift tıklayarak denemek içindir.
+Tek dosyalık BZK_HARITA_OKUYUCU_v4.18.3.html bilgisayarda (Chrome/Edge) çift tıklayarak denemek içindir.
